@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PixiJS Bunny Grid</title>
+    <script src="https://pixijs.download/v5.3.12/pixi.min.js"></script>
+    <style>
+        body { margin: 0; padding: 0; overflow: hidden; }       
+    </style>
+
+</head>
+<body>
+
+    <script>
+            // 创建 Pixi 应用
+            const app = new PIXI.Application({  
+            backgroundColor: 0x1099bb,
+            resizeTo: window, // 让画布自动适配窗口大小
+        });
+
+        // 添加到页面
+        document.body.appendChild(app.view);
+
+        // 创建容器
+        const container = new PIXI.Container();
+        app.stage.addChild(container);
+
+        // 加载图片资源
+        const loader = PIXI.Loader.shared;
+
+        loader.add("bunny", "https://pixijs.com/assets/bunny.png");
+
+        loader.load((loader, resources) => {
+            const texture = resources.bunny.texture;  
+
+            // 创建一个 5x5 的兔子精灵网格
+            for (let i = 0; i < 25; i++) {
+                const bunny = new PIXI.Sprite(texture);
+                bunny.x = (i % 5) * 40;                       // i%5 表示取模 0-4
+                bunny.y = Math.floor(i / 5) * 40;
+                container.addChild(bunny);
+            }
+
+            // 把整个容器移到中心
+            container.x = app.renderer.width / 2;
+            container.y = app.renderer.height / 2;
+
+            // 设置容器中心点为旋转中心
+            container.pivot.x = container.width / 2;
+            container.pivot.y = container.height / 2;
+
+            // 动画更新：让容器旋转
+            app.ticker.add(() => {
+                container.rotation -= 0.01;
+            });
+        });
+
+    </script>
+    
+</body>
+</html>
