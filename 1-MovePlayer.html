@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>youtube_practice</title>
+    <script src="js/pixi.min.js"></script>
+    <script>
+        let app;    //声明变量
+        let player;
+
+        window.onload = function(){
+            app = new PIXI.Application(
+                {
+                    width: 800,
+                    height: 600,
+                    backgroundColor: 0xAAAAAA
+                }
+            );                             //定义app，application创建画布，设置画布尺寸等
+
+            document.body.appendChild(app.view);    //document是浏览器提供的全局对象，代表整个HTML页面，浏览正在显示的网页
+                                                    // view之前的创建的app
+            //player object
+            player = new PIXI.Sprite.from("images/player.png");    //pixi中的图像对象，用来显示图片等视觉元素
+            player.anchor.set(0.5);                 //0.5是最常用的数值，表示中心点
+            player.x = app.view.width / 2;         
+            player.y = app.view.height / 2;
+
+            app.stage.addChild(player);    //用来显示元素
+            
+            //keyboard event handlers
+            window.addEventListener
+
+            //mouse interations
+            app.stage.interactive = true;   //相应鼠标事件，开启交互功能
+            app.stage.on("pointermove", movePlayer);   //相应鼠标移动
+        }
+
+        function movePlayer(e) {             //表示event
+            let pos = e.data.global;      //表示从事件对象中取出鼠标当前所在的全局坐标
+
+            player.x = pos.x;
+            player.y = pos.y;
+        }
+    </script>
+</head>
+<body>
+    
+</body>
+</html>
